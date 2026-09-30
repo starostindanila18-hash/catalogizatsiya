@@ -21,15 +21,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Build
-        run: |
-          pyinstaller --noconfirm --clean --onefile --noconsole ^
-            --name Catalogizatsiya ^
-            --collect-all odf ^
-            --collect-all pyexcel_ods3 ^
-            --collect-all docx ^
-            --collect-all openpyxl ^
-            --hidden-import xlwt ^
-            main.py
+        run: pyinstaller --noconfirm --clean --onefile --noconsole --name Catalogizatsiya --collect-all odf --collect-all pyexcel_ods3 --collect-all docx --collect-all openpyxl --hidden-import xlwt main.py
 
       - uses: actions/upload-artifact@v4
         with:
