@@ -1,0 +1,6 @@
+python-docx
+openpyxl
+pyexcel-ods3
+odfpy
+xlwt
+pyinstaller
