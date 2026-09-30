@@ -1,0 +1,37 @@
+name: Build EXE
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install deps
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Build
+        run: |
+          pyinstaller --noconfirm --clean --onefile --noconsole ^
+            --name Catalogizatsiya ^
+            --collect-all odf ^
+            --collect-all pyexcel_ods3 ^
+            --collect-all docx ^
+            --collect-all openpyxl ^
+            --hidden-import xlwt ^
+            main.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Catalogizatsiya-EXE
+          path: dist/Catalogizatsiya.exe
